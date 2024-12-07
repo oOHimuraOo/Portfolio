@@ -1,0 +1,80 @@
+$logoFont: 'Raleway', sans-serif;
+$bodyFont: 'Roboto', sans-serif;
+$codeFont: 'Space-grotesk', sans-serif;
+
+$headerColors: (
+    primary: #1D1F2D,
+    secondary: #292A38,
+    font: #9497A9,
+);
+
+$leftBarColors: (
+    primary: #1A1B26,
+    selected: #181923,
+    iconSelected: #9497A9,
+    icon: #4A4E62,
+);
+
+$leftMenuColors: (
+    primary: #1D1F2D,
+    secondary: #1A1B26,
+    font: #B6CAF5,
+    fontSecondary: #9497a9,
+);
+
+$tabBarColors: (
+    primary: #222332,
+    secondary: #1A1B26,
+    borderPrimary: #F7768E,
+    borderSecondary: #000000,
+    fontPrimary: #E4EFF1,
+    fontSecondary: #9497A9,
+);
+
+$viewPortColors: (
+    primary: #222332,
+    secondary: #1A1B26,
+    shadow: #000,
+    font: #B6CAF5,
+);
+
+$specsColors: (
+    primary: #1D1F2D,
+    secondary: #1A1B26,
+    fontTitle: #B6CAF5,
+    fontText: #9497A9,
+);
+
+$codeBoxColor: (
+    primary: #11121A,
+    border: #1D1F2D,
+);
+
+$codeColor: (
+    reserved: #DE6561,
+    fileName: #ACC2AB,
+    reservedAbrev: #36C0C0,
+    variablesNames: #6199EF,
+    functionsNames: #72C369,
+    code: #ACCFD7,
+    string: #E5C07B,
+    firstLevel: #D8D700,
+    secondLevel: #DA70D6,
+    thirdLevel: #6199EF,
+    declarations: #f2d2ff,
+);
+
+$buttonColor: (
+    primary: #1D1F2D,
+    font: #B6CAF5,
+);
+
+$footerColors: (
+    primary: #11121A,
+    secondary: #37732E,
+    terciary: #932121,
+    font: #ffffff,
+);
+
+$mobileSize: 767px;
+$tabletSize: 1023px;
