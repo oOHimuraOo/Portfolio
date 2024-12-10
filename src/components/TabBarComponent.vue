@@ -29,7 +29,6 @@ const findOpenedProject = computed(() => {
 
 const activeTabIndex = ref<number>(0)
 const handleActivTab = (index:number) => {
-  console.log(index)
   activeTabIndex.value = index
   getOverallIndex(index, false)
 }

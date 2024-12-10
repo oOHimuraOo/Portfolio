@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { project, STATUS } from '@/utils/class/projectClass'
-import { computed, ref, defineEmits } from 'vue'
+import { computed, ref, defineEmits, watch } from 'vue'
 
 interface Props {
   selectedMenu: string
   projects: project[]
+  projIndex: number
+  subProjIndex: number
 }
 
 const folder = './src/assets/images/icones/folder-svgrepo-com.svg'
@@ -50,6 +52,29 @@ const toggleSelectedSubproject = (index: number, idx: number) => {
   projectSelected.value = index
   emit('subProjectIndex', projectSelected.value, subprojecSelected.value)
 }
+
+const name = ref<string>('Project Not Found')
+const description = ref<string>('Nenhum projeto ou subprojeto selecionado ainda. Escolha um para ler mais sobre ele.')
+const conclusion = ref<string>('Nenhum projeto ou subprojeto selecionado ainda. Escolha um para ler mais sobre ele.')
+
+const changeNameDescriptionConclusion = () => {
+  name.value = findName()
+  description.value = findDescription()
+  conclusion.value = findConclusion()
+}
+
+watch([subprojecSelected, projectSelected], changeNameDescriptionConclusion)
+watch(() => [props.projIndex, props.subProjIndex], ([newProjeIndex, newSubProjIndex]) => {
+  if (newProjeIndex !== -1) {
+    if (newSubProjIndex === -1) {
+      toggleSelectedProject(newProjeIndex)
+    } else {
+      toggleSelectedSubproject(newProjeIndex, newSubProjIndex)
+    }
+  } else {
+    toggleSelectedSubproject(-1, -1)
+  }
+})
 
 const findName = () => {
   if (subprojecSelected.value === -1) {
@@ -194,9 +219,9 @@ function getTitle(): string {
           </a>
         </div>
         <div v-if="sectionBIsActive" class="section_body">
-          <h3>Description of {{ findName() }}</h3>
+          <h3>Description of {{ name }}</h3>
           <p>
-            {{ findDescription() }}
+            {{ description }}
           </p>
         </div>
       </section>
@@ -208,9 +233,9 @@ function getTitle(): string {
           </a>
         </div>
         <div v-if="sectionCIsActive" class="section_body">
-          <h3>Conclusion of {{ findName() }}</h3>
+          <h3>Conclusion of {{ name }}</h3>
           <p>
-            {{ findConclusion() }}
+            {{ conclusion }}
           </p>
         </div>
       </section>
@@ -373,7 +398,11 @@ function getTitle(): string {
             align-items: center;
             font-size: 12px;
             font-family: $bodyFont;
-            color: map-get($map: $leftMenuColors, $key: font);
+            color: map-get($map: $leftMenuColors, $key: fontSecondary);
+
+            &:hover {
+              color: map-get($map: $leftMenuColors, $key: font);
+            }
 
             img {
               height: 10px;
@@ -475,6 +504,11 @@ function getTitle(): string {
             text-decoration: none;
             width: 100%;
             height: 100%;
+            color: map-get($map: $leftMenuColors, $key: fontSecondary);
+
+            &:hover {
+              color: map-get($map: $leftMenuColors, $key: font);
+            }
 
             img {
               height: 20px;
@@ -497,18 +531,54 @@ function getTitle(): string {
   .section_completed {
     .projects_completed {
       padding: 5px;
+
+      .project_list {
+        &_item {
+          a {
+            color: map-get($map: $leftMenuColors, $key: fontSecondary);
+
+            &:hover {
+              color: map-get($map: $leftMenuColors, $key: font);
+            }
+          }
+        }
+      }
     }
   }
 
   .section_indevelopment {
     .projects_indevelopment {
       padding: 5px;
+
+      .project_list {
+        &_item {
+          a {
+            color: map-get($map: $leftMenuColors, $key: fontSecondary);
+
+            &:hover {
+              color: map-get($map: $leftMenuColors, $key: font);
+            }
+          }
+        }
+      }
     }
   }
 
   .section_droped {
     .projects_droped {
       padding: 5px;
+
+      .project_list {
+        &_item {
+          a {
+            color: map-get($map: $leftMenuColors, $key: fontSecondary);
+
+            &:hover {
+              color: map-get($map: $leftMenuColors, $key: font);
+            }
+          }
+        }
+      }
     }
   }
 

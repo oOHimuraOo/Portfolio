@@ -33,7 +33,30 @@ const projectNames: string[] = [
   "SistemaAutenticaçãoBiométrica"
 ];
 
-function getRandomEnumValue(): STATUS {
+const tecnologiasDeProgramacao = [
+  "JavaScript",
+  "Python",
+  "Java",
+  "C++",
+  "Ruby on Rails",
+  "React",
+  "Angular",
+  "Vue.js",
+  "Node.js",
+  "Django",
+  "Spring Boot",
+  "Flutter",
+  "Kotlin",
+  "Swift",
+  "SQL",
+  "MongoDB",
+  "GraphQL",
+  "Docker",
+  "Kubernetes",
+  "TensorFlow"
+];
+
+export function getRandomEnumValue(): STATUS {
   const enumValues = Object.values(STATUS).filter(value => typeof value === 'number')
   const randomIndex = Math.floor(Math.random() * enumValues.length);
   return enumValues[randomIndex] as STATUS
@@ -49,8 +72,9 @@ export function generateSubProject(): subProject[] {
     const conclusion = `essa é uma conclusão padrão do subprojeto ${name}`
     const icon = 'http://via.placeholder.com/25x25'
     const status = getRandomEnumValue()
+    const tech = tecnologiasDeProgramacao[Math.floor(Math.random() * tecnologiasDeProgramacao.length)]
 
-    const newSubproject = new subProject(name, url, description, conclusion, status, icon)
+    const newSubproject = new subProject(name, url, description, conclusion, status, icon, tech)
     subProjectArray.push(newSubproject)
   }
 
@@ -68,8 +92,9 @@ export function genearateProjects(): project[] {
     const subProjects = generateSubProject()
     const icon = 'http://via.placeholder.com/25x25'
     const status = getRandomEnumValue()
+    const tech = tecnologiasDeProgramacao[Math.floor(Math.random() * tecnologiasDeProgramacao.length)]
 
-    const newProject = new project(name, subProjects, url, description, conclusion, status, icon)
+    const newProject = new project(name, subProjects, url, description, conclusion, status, icon, tech)
 
     projectArray.push(newProject)
   }

@@ -10,12 +10,11 @@ interface Props {
 }
 
 const props = defineProps<Props>()
-const activeProject = ref<boolean>(true)
+const activeProject = ref<boolean>(false)
 
 watch(
-  () => props.proj, (newValue:project | subProject | null) => {
+  () => props.proj, () => {
     activeProject.value = false
-    console.log(newValue)
   }
 )
 

@@ -1,8 +1,55 @@
 <script setup lang="ts">
+import { ref } from 'vue';
+
 const retornar = './src/assets/images/icones/back-svgrepo-com.svg'
 const minimize = './src/assets/images/icones/minimize-window-svgrepo-com.svg'
 const maximize = './src/assets/images/icones/maximize-svgrepo-com.svg'
 const close = './src/assets/images/icones/close-bold-svgrepo-com.svg'
+
+const windowSize = ref<string>('null')
+const emit = defineEmits(['size'])
+
+const handleWindowSize = (size:string) => {
+  switch (size) {
+    case 'maximized':
+      if (windowSize.value === 'maximized') {
+        windowSize.value = 'null'
+      } else {
+        windowSize.value = size
+      }
+
+      sendSize()
+      break
+    case 'minimized':
+      if (windowSize.value === 'minimized') {
+        windowSize.value = 'null'
+      } else {
+        windowSize.value = size
+        alert('A funcionalidade minimizar e fechar ainda não foram implementadas. Por enquanto apenas executará uma troca de cor de alguns caracteres.')
+      }
+
+      sendSize()
+      break
+    case 'closed':
+      if (windowSize.value === 'closed') {
+        windowSize.value = 'null'
+      } else {
+        windowSize.value = size
+        alert('A funcionalidade minimizar e fechar ainda não foram implementadas. Por enquanto apenas executará uma troca de cor de alguns caracteres.')
+      }
+
+      sendSize()
+      break
+    default:
+      windowSize.value = 'null'
+      sendSize()
+      break
+  }
+}
+
+const sendSize = () => {
+  emit('size', windowSize.value)
+}
 </script>
 
 <template>
@@ -74,17 +121,17 @@ const close = './src/assets/images/icones/close-bold-svgrepo-com.svg'
       <div class="bloco_4">
         <ul>
           <li>
-            <a href="#">
+            <a href="#" @click.prevent="handleWindowSize('minimized')">
               <img :src="minimize" alt="minimizar">
             </a>
           </li>
           <li>
-            <a href="#">
-              <img :src="maximize" alt="maximizar">
+            <a href="#" @click.prevent="handleWindowSize('maximized')">
+              <img :src="maximize" alt="maximizar" >
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="#" @click.prevent="handleWindowSize('closed')">
               <img :src="close" alt="fechar">
             </a>
           </li>

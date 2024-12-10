@@ -1,47 +1,51 @@
 <script setup lang="ts">
+import type { footerInfo } from '@/utils/class/siteInfoClass';
+
+
+interface Props {
+  info: footerInfo
+}
+
+const props = defineProps<Props>()
 </script>
 
 <template>
   <div class="footer_container">
-    <div class="status">
+    <div class="status" :class="{offline: props.info.status}">
       <h1>{H}</h1>
     </div>
     <div class="bars">
       <div class="left_bar">
         <div>
-          <img src="https://via.placeholder.com/10x10" alt="">
-          <span>09/10/2024</span>
+          <img src="https://via.placeholder.com/10x10" alt="last Update">
+          <span>{{ props.info.lastUpdate }}</span>
         </div>
         <div>
-          <img src="https://via.placeholder.com/10x10" alt="">
-          <span>9999</span>
+          <img src="https://via.placeholder.com/10x10" alt="views">
+          <span>{{ props.info.views }}</span>
         </div>
         <div>
-          <img src="https://via.placeholder.com/10x10" alt="">
-          <span>0</span>
+          <img src="https://via.placeholder.com/10x10" alt="errors">
+          <span>{{ props.info.errors }}</span>
         </div>
         <div>
-          <img src="https://via.placeholder.com/10x10" alt="">
-          <span>0</span>
+          <img src="https://via.placeholder.com/10x10" alt="alert">
+          <span>{{ props.info.alert }}</span>
         </div>
       </div>
       <div class="center_bar">
         <div>
           <img src="https://via.placeholder.com/10x10" alt="">
-          <span>made by oOHimuraOo</span>
+          <span>{{ props.info.author }}</span>
         </div>
         <div>
           <img src="https://via.placeholder.com/10x10" alt="">
-          <span>made with Vue.js</span>
+          <span>{{ props.info.madeIn }}</span>
         </div>
       </div>
       <div class="right_bar">
         <div>
-          <img src="https://via.placeholder.com/10x10" alt="">
-          <img src="https://via.placeholder.com/10x10" alt="">
-          <img src="https://via.placeholder.com/10x10" alt="">
-          <img src="https://via.placeholder.com/10x10" alt="">
-          <img src="https://via.placeholder.com/10x10" alt="">
+          <img v-for="(url, index) in props.info.expertise" :src="url" :key="index">
         </div>
       </div>
     </div>

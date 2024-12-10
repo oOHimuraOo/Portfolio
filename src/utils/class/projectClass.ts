@@ -11,14 +11,16 @@ export class subProject {
   conclusion: string
   status: STATUS
   icon: string
+  tech: string
 
-  constructor(n:string, u:string, d:string, c:string, s:STATUS, i:string) {
+  constructor(n:string, u:string, d:string, c:string, s:STATUS, i:string, t:string) {
     this.name = n
     this.url = u
     this.description = d
     this.conclusion = c
     this.status = s
     this.icon = i
+    this.tech = t
   }
 }
 
@@ -30,8 +32,9 @@ export class project {
   conclusion: string
   status: STATUS
   icon: string
+  tech: string
 
-  constructor(n:string, s:subProject[], u:string, d:string, c:string, st:STATUS, i:string) {
+  constructor(n:string, s:subProject[], u:string, d:string, c:string, st:STATUS, i:string, t:string) {
     this.name = n
     this.subProjects = s
     this.url = u
@@ -39,5 +42,6 @@ export class project {
     this.conclusion = c
     this.status = st
     this.icon = i
+    this.tech = t
   }
 }
