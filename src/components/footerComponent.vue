@@ -6,6 +6,14 @@ interface Props {
   info: footerInfo
 }
 
+const calendar = "./src/assets/images/icones/calendar-small-svgrepo-com.svg"
+const graduate = "./src/assets/images/icones/graduate-certificate-svgrepo-com.svg"
+const certificate = "./src/assets/images/icones/education-certificate-with-letters-cpe-and-a-ribbon-svgrepo-com.svg"
+const totalEducation = "./src/assets/images/icones/graduate-svgrepo-com.svg"
+const Fullstack = "./src/assets/images/icones/stack2-svgrepo-com.svg"
+const gamedev = "./src/assets/images/icones/game-controller-svgrepo-com.svg"
+const views = "./src/assets/images/icones/globe-svgrepo-com.svg"
+
 const props = defineProps<Props>()
 </script>
 
@@ -17,29 +25,33 @@ const props = defineProps<Props>()
     <div class="bars">
       <div class="left_bar">
         <div>
-          <img src="https://via.placeholder.com/10x10" alt="last Update">
+          <img :src="calendar" alt="last Updated at">
           <span>{{ props.info.lastUpdate }}</span>
         </div>
         <div>
-          <img src="https://via.placeholder.com/10x10" alt="views">
+          <img :src="views" alt="views">
           <span>{{ props.info.views }}</span>
         </div>
         <div>
-          <img src="https://via.placeholder.com/10x10" alt="errors">
-          <span>{{ props.info.errors }}</span>
+          <img :src="totalEducation" alt="Quantity of certificates and diplomas">
+          <span>{{ props.info.totalCourses }}</span>
         </div>
         <div>
-          <img src="https://via.placeholder.com/10x10" alt="alert">
-          <span>{{ props.info.alert }}</span>
+          <img :src="certificate" alt="Quantity of certificates">
+          <span>{{ props.info.certificates }}</span>
+        </div>
+        <div>
+          <img :src="graduate" alt="Quantity of diplomas">
+          <span>{{ props.info.graduations }}</span>
         </div>
       </div>
       <div class="center_bar">
         <div>
-          <img src="https://via.placeholder.com/10x10" alt="">
+          <img :src="Fullstack" alt="">
           <span>{{ props.info.author }}</span>
         </div>
         <div>
-          <img src="https://via.placeholder.com/10x10" alt="">
+          <img :src="gamedev" alt="">
           <span>{{ props.info.madeIn }}</span>
         </div>
       </div>

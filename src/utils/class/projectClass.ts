@@ -1,7 +1,7 @@
 export enum STATUS {
   COMPLETED,
   IN_DEVELOPMENT,
-  DROPPED
+  DROPPED,
 }
 
 export class subProject {
@@ -12,8 +12,18 @@ export class subProject {
   status: STATUS
   icon: string
   tech: string
+  code_ex: string
 
-  constructor(n:string, u:string, d:string, c:string, s:STATUS, i:string, t:string) {
+  constructor(
+    n: string,
+    u: string,
+    d: string,
+    c: string,
+    s: STATUS,
+    i: string,
+    t: string,
+    ce: string,
+  ) {
     this.name = n
     this.url = u
     this.description = d
@@ -21,6 +31,7 @@ export class subProject {
     this.status = s
     this.icon = i
     this.tech = t
+    this.code_ex = ce
   }
 }
 
@@ -33,8 +44,19 @@ export class project {
   status: STATUS
   icon: string
   tech: string
+  code_ex: string
 
-  constructor(n:string, s:subProject[], u:string, d:string, c:string, st:STATUS, i:string, t:string) {
+  constructor(
+    n: string,
+    s: subProject[],
+    u: string,
+    d: string,
+    c: string,
+    st: STATUS,
+    i: string,
+    t: string,
+    ce: string,
+  ) {
     this.name = n
     this.subProjects = s
     this.url = u
@@ -43,5 +65,6 @@ export class project {
     this.status = st
     this.icon = i
     this.tech = t
+    this.code_ex = ce
   }
 }

@@ -54,8 +54,12 @@ const toggleSelectedSubproject = (index: number, idx: number) => {
 }
 
 const name = ref<string>('Project Not Found')
-const description = ref<string>('Nenhum projeto ou subprojeto selecionado ainda. Escolha um para ler mais sobre ele.')
-const conclusion = ref<string>('Nenhum projeto ou subprojeto selecionado ainda. Escolha um para ler mais sobre ele.')
+const description = ref<string>(
+  'Nenhum projeto ou subprojeto selecionado ainda. Escolha um para ler mais sobre ele.',
+)
+const conclusion = ref<string>(
+  'Nenhum projeto ou subprojeto selecionado ainda. Escolha um para ler mais sobre ele.',
+)
 
 const changeNameDescriptionConclusion = () => {
   name.value = findName()
@@ -64,17 +68,20 @@ const changeNameDescriptionConclusion = () => {
 }
 
 watch([subprojecSelected, projectSelected], changeNameDescriptionConclusion)
-watch(() => [props.projIndex, props.subProjIndex], ([newProjeIndex, newSubProjIndex]) => {
-  if (newProjeIndex !== -1) {
-    if (newSubProjIndex === -1) {
-      toggleSelectedProject(newProjeIndex)
+watch(
+  () => [props.projIndex, props.subProjIndex],
+  ([newProjeIndex, newSubProjIndex]) => {
+    if (newProjeIndex !== -1) {
+      if (newSubProjIndex === -1) {
+        toggleSelectedProject(newProjeIndex)
+      } else {
+        toggleSelectedSubproject(newProjeIndex, newSubProjIndex)
+      }
     } else {
-      toggleSelectedSubproject(newProjeIndex, newSubProjIndex)
+      toggleSelectedSubproject(-1, -1)
     }
-  } else {
-    toggleSelectedSubproject(-1, -1)
-  }
-})
+  },
+)
 
 const findName = () => {
   if (subprojecSelected.value === -1) {
@@ -123,7 +130,7 @@ const filteredProjects = computed(() => {
   }
 
   const filtered = projectsNames.filter((p) =>
-  p.toLowerCase().includes(searchQuery.value.toLowerCase()),
+    p.toLowerCase().includes(searchQuery.value.toLowerCase()),
   )
 
   return filtered
@@ -145,7 +152,7 @@ const findIndexByName = (name: string) => {
   }
 }
 
-const filterByStatus = (status:STATUS) => {
+const filterByStatus = (status: STATUS) => {
   const projectsarray: project[] = []
   for (let x = 0; x < props.projects.length; x++) {
     if (props.projects[x].status === status) {
@@ -215,7 +222,7 @@ function getTitle(): string {
         <div class="section_title">
           <a href="#" @click="toggleActiveSectionB">
             <h2>Project Description</h2>
-            <img :src="openCloseImage" alt="open/close" :class="{ flipped: !sectionAIsActive }" />
+            <img :src="openCloseImage" alt="open/close" :class="{ flipped: !sectionBIsActive }" />
           </a>
         </div>
         <div v-if="sectionBIsActive" class="section_body">
@@ -229,7 +236,7 @@ function getTitle(): string {
         <div class="section_title">
           <a href="#" @click="toggleActiveSectionC">
             <h2>Project Conclusion</h2>
-            <img :src="openCloseImage" alt="open/close" :class="{ flipped: !sectionAIsActive }" />
+            <img :src="openCloseImage" alt="open/close" :class="{ flipped: !sectionCIsActive }" />
           </a>
         </div>
         <div v-if="sectionCIsActive" class="section_body">
@@ -275,8 +282,12 @@ function getTitle(): string {
         </div>
         <div v-if="sectionAIsActive" class="projects_completed">
           <ul class="project_list">
-            <li v-for="(project, index) in filterByStatus(STATUS.COMPLETED)" class="project_list_item" :key="index">
-              <a href="#" @click.prevent="toggleSelectedProject(index)">
+            <li
+              v-for="(project, index) in filterByStatus(STATUS.COMPLETED)"
+              class="project_list_item"
+              :key="index"
+            >
+              <a href="#" @click.prevent="findIndexByName(project.name)">
                 <img :src="project.icon" :alt="project.name" />
                 <h3>{{ project.name }}</h3>
               </a>
@@ -293,8 +304,12 @@ function getTitle(): string {
         </div>
         <div v-if="sectionBIsActive" class="projects_indevelopment">
           <ul class="project_list">
-            <li v-for="(project, index) in filterByStatus(STATUS.IN_DEVELOPMENT)" class="project_list_item" :key="index">
-              <a href="#" @click.prevent="toggleSelectedProject(index)">
+            <li
+              v-for="(project, index) in filterByStatus(STATUS.IN_DEVELOPMENT)"
+              class="project_list_item"
+              :key="index"
+            >
+              <a href="#" @click.prevent="findIndexByName(project.name)">
                 <img :src="project.icon" :alt="project.name" />
                 <h3>{{ project.name }}</h3>
               </a>
@@ -311,8 +326,12 @@ function getTitle(): string {
         </div>
         <div v-if="sectionCIsActive" class="projects_droped">
           <ul class="project_list">
-            <li v-for="(project, index) in filterByStatus(STATUS.DROPPED)" class="project_list_item" :key="index">
-              <a href="#" @click.prevent="toggleSelectedProject(index)">
+            <li
+              v-for="(project, index) in filterByStatus(STATUS.DROPPED)"
+              class="project_list_item"
+              :key="index"
+            >
+              <a href="#" @click.prevent="findIndexByName(project.name)">
                 <img :src="project.icon" :alt="project.name" />
                 <h3>{{ project.name }}</h3>
               </a>

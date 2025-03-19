@@ -1,6 +1,6 @@
 # portfolio
 
-This template should help get you started developing with Vue 3 in Vite.
+Esse site foi construido com VUE a ideia por do site foi criar algo que pudesse exemplificar as minhas capacidades de desenvolvimento. Ele serve tambem como um link direto para as minhas redes sociais e mostra alguns exemplos de projetos pessoais na area de desenvolvimento.
 
 ## Recommended IDE Setup
 

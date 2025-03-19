@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { curso } from '@/utils/class/cursoClass';
-import type { profile } from '@/utils/class/profileClass';
-import type { project } from '@/utils/class/projectClass';
-import { STATUS } from '@/utils/class/projectClass';
-import { computed } from 'vue';
+import type { curso } from '@/utils/class/cursoClass'
+import type { profile } from '@/utils/class/profileClass'
+import type { project } from '@/utils/class/projectClass'
+import { STATUS } from '@/utils/class/projectClass'
+import { computed } from 'vue'
 
 interface Props {
   cursos: curso[]
@@ -13,7 +13,7 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const counterCoursesOrProjects = (course:boolean, status:STATUS) => {
+const counterCoursesOrProjects = (course: boolean, status: STATUS) => {
   if (course) {
     let cont = 0
     for (let x = 0; x < props.cursos.length; x++) {
@@ -36,7 +36,7 @@ const counterCoursesOrProjects = (course:boolean, status:STATUS) => {
 const handleCourses = computed(() => {
   const novoArray: curso[] = []
   for (let x = 0; x < props.cursos.length; x++) {
-    if (props.cursos[x].status === STATUS.COMPLETED) {
+    if (props.cursos[x].status === STATUS.COMPLETED || props.cursos[x].status === STATUS.IN_DEVELOPMENT) {
       novoArray.push(props.cursos[x])
     }
   }
@@ -53,6 +53,16 @@ const handleProjects = computed(() => {
 
   return novoArray
 })
+
+const abrirUrl = (tipo:string, url: string, nome: string) => {
+  if (
+    window.confirm(
+      `Essa ação abrirá uma nova aba direcionada para a pagina ${tipo} ${nome}. Deseja prosseguir?`,
+    )
+  ) {
+    window.open(url, '_blank', 'noopener,noreferrer')
+  }
+}
 </script>
 
 <template>
@@ -82,29 +92,45 @@ const handleProjects = computed(() => {
     <div class="container_de_miolo">
       <div class="container_de_cursos">
         <ul class="lista_cursos">
-          <li v-for="(curso, index) in handleCourses" class="lista_cursos_item" :key="index" :class="{final: index === (handleCourses.length - 1)}">
-            <img :src="curso.icon" :alt="curso.name" />
-            <div>
-              <h4>{{ curso.name }}</h4>
-              <h5>{{ curso.entidade }} | {{ curso.tecnologia }} | {{ curso.codigoCertificado }}</h5>
-              <p>
-                {{ curso.descricao }}
-              </p>
-            </div>
+          <li
+            v-for="(curso, index) in handleCourses"
+            class="lista_cursos_item"
+            :key="index"
+            :class="{ final: index === handleCourses.length - 1 }"
+          >
+            <a @click.prevent="abrirUrl('do certificado do curso: ', curso.link, curso.name)">
+              <img :src="curso.icon" :alt="curso.name" />
+              <div>
+                <h4>{{ curso.name }}</h4>
+                <h5>
+                  {{ curso.entidade }} | {{ curso.tecnologia }} | {{ curso.codigoCertificado }}
+                </h5>
+                <p>
+                  {{ curso.descricao }}
+                </p>
+              </div>
+            </a>
           </li>
         </ul>
       </div>
       <div class="container_de_projetos">
         <ul class="lista_projetos">
-          <li v-for="(projeto, index) in handleProjects" class="lista_projetos_item" :key="index" :class="{final: index === (handleProjects.length - 1)}">
-            <img :src="projeto.icon" :alt="projeto.name" />
-            <div>
-              <h4>{{ projeto.name }}</h4>
-              <h5>{{ projeto.tech }}</h5>
-              <p>
-                {{ projeto.description }}
-              </p>
-            </div>
+          <li
+            v-for="(projeto, index) in handleProjects"
+            class="lista_projetos_item"
+            :key="index"
+            :class="{ final: index === handleProjects.length - 1 }"
+          >
+            <a @click.prevent="abrirUrl('do projeto: ', projeto.url, projeto.name)">
+              <img :src="projeto.icon" :alt="projeto.name" />
+              <div>
+                <h4>{{ projeto.name }}</h4>
+                <h5>{{ projeto.tech }}</h5>
+                <p>
+                  {{ projeto.description }}
+                </p>
+              </div>
+            </a>
           </li>
         </ul>
       </div>
@@ -118,14 +144,31 @@ const handleProjects = computed(() => {
 .profile_container {
   background-color: map-get($map: $viewPortColors, $key: primary);
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 62px);
   overflow: hidden;
   overflow-y: scroll;
   padding: 50px;
 
   &::-webkit-scrollbar {
-    display: none;
+    background-color: map-get($map: $viewPortColors, $key: primary);
+
+    width: 20px;
   }
+
+  &::-webkit-scrollbar-track {
+    background-color: map-get($map: $viewPortColors, $key: secondary);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: map-get($map: $viewPortColors, $key: primary);
+    border-radius: 8px;
+    border: 2px solid map-get($map: $viewPortColors, $key: secondary);
+
+    &:hover {
+      background: map-get($map: $viewPortColors, $key: shadow);
+    }
+  }
+
 
   .title_section {
     margin: 0 auto;
@@ -156,6 +199,8 @@ const handleProjects = computed(() => {
     h3 {
       font-family: $codeFont;
       text-transform: uppercase;
+      text-align: center;
+      margin-top: 10px;
       font-size: 16px;
       color: darken($color: map-get($map: $headerColors, $key: font), $amount: 15);
     }
@@ -211,24 +256,30 @@ const handleProjects = computed(() => {
     display: flex;
     justify-content: space-between;
     width: 100%;
+    height: 100%;
+    max-height: 150px;
+    background-color: map-get($map: $viewPortColors, $key: secondary);
+    border: 2px solid map-get($map: $viewPortColors, $key: secondary);
+    padding: 8px;
 
-    .container_de_cursos, .container_de_projetos {
-      border: 2px solid map-get($map: $viewPortColors, $key: primary);
+    .container_de_cursos,
+    .container_de_projetos {
       box-shadow: inset 0px 0px 4px map-get($map: $viewPortColors, $key: shadow);
       margin-right: 10px;
       padding: 10px;
       width: 100%;
       height: 100%;
       background-color: map-get($map: $viewPortColors, $key: secondary);
-      max-height: 500px;
+
       overflow: hidden;
       overflow-y: scroll;
 
-      &::-webkit-scrollbar{
+      &::-webkit-scrollbar {
         display: none;
       }
 
-      .lista_cursos, .lista_projetos {
+      .lista_cursos,
+      .lista_projetos {
         list-style: none;
 
         &_item {
@@ -240,47 +291,62 @@ const handleProjects = computed(() => {
           align-items: center;
           margin-bottom: 15px;
 
-          img {
-            height: 50px;
-            width: 50px;
-            margin-right: 8px;
-          }
+          a {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
 
-          div {
-            h4 {
-              overflow: hidden;
-              max-width: 200px;
-              font-size: 14px;
-              font-weight: bolder;
-              font-family: $codeFont;
-              text-transform: uppercase;
-              color: map-get($map: $viewPortColors, $key: font);
+            img {
+              height: 50px;
+              width: 50px;
+              margin-right: 8px;
             }
 
-            h5 {
-              font-size: 10px;
-              font-style: italic;
-              font-family: $codeFont;
-              text-transform: uppercase;
-            }
+            div {
+              h4 {
+                overflow: hidden;
+                max-width: 200px;
+                font-size: 14px;
+                font-weight: bolder;
+                font-family: $codeFont;
+                text-transform: uppercase;
+                color: map-get($map: $viewPortColors, $key: font);
+              }
 
-            p {
-              font-size: 12px;
-              font-family: $bodyFont;
-              margin-top: 5px;
+              h5 {
+                font-size: 10px;
+                font-style: italic;
+                font-family: $codeFont;
+                text-transform: uppercase;
+                color: map-get($map: $viewPortColors, $key: fontSecondary);
+              }
+
+              p {
+                font-size: 12px;
+                font-family: $bodyFont;
+                margin-top: 5px;
+                color: map-get($map: $viewPortColors, $key: fontSecondary);
+              }
             }
           }
 
           &:hover {
-            background-color: lighten($color: map-get($map: $viewPortColors, $key: primary), $amount: 5);
+            background-color: lighten(
+              $color: map-get($map: $viewPortColors, $key: primary),
+              $amount: 5
+            );
           }
         }
 
         .final {
           margin-bottom: 0;
         }
-
       }
+    }
+
+    .container_de_projetos {
+      margin-right: 0;
     }
   }
 }

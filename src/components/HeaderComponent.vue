@@ -1,5 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import type { project } from '@/utils/class/projectClass'
+import { ref } from 'vue'
+
+interface Props {
+  projeto1: project | null
+  projeto2: project | null
+  projeto3: project | null
+}
 
 const retornar = './src/assets/images/icones/back-svgrepo-com.svg'
 const minimize = './src/assets/images/icones/minimize-window-svgrepo-com.svg'
@@ -7,9 +14,10 @@ const maximize = './src/assets/images/icones/maximize-svgrepo-com.svg'
 const close = './src/assets/images/icones/close-bold-svgrepo-com.svg'
 
 const windowSize = ref<string>('null')
+const props = defineProps<Props>()
 const emit = defineEmits(['size'])
 
-const handleWindowSize = (size:string) => {
+const handleWindowSize = (size: string) => {
   switch (size) {
     case 'maximized':
       if (windowSize.value === 'maximized') {
@@ -25,7 +33,9 @@ const handleWindowSize = (size:string) => {
         windowSize.value = 'null'
       } else {
         windowSize.value = size
-        alert('A funcionalidade minimizar e fechar ainda não foram implementadas. Por enquanto apenas executará uma troca de cor de alguns caracteres.')
+        alert(
+          'A funcionalidade minimizar e fechar ainda não foram implementadas. Por enquanto apenas executará uma troca de cor de alguns caracteres.',
+        )
       }
 
       sendSize()
@@ -35,7 +45,9 @@ const handleWindowSize = (size:string) => {
         windowSize.value = 'null'
       } else {
         windowSize.value = size
-        alert('A funcionalidade minimizar e fechar ainda não foram implementadas. Por enquanto apenas executará uma troca de cor de alguns caracteres.')
+        alert(
+          'A funcionalidade minimizar e fechar ainda não foram implementadas. Por enquanto apenas executará uma troca de cor de alguns caracteres.',
+        )
       }
 
       sendSize()
@@ -50,6 +62,47 @@ const handleWindowSize = (size:string) => {
 const sendSize = () => {
   emit('size', windowSize.value)
 }
+
+const nullValueHandler = (valor: number, icon: boolean) => {
+  if (valor === 1) {
+    if (props.projeto1 === null) {
+      return ''
+    }
+    if (icon) {
+      return props.projeto1.icon
+    } else {
+      return props.projeto1.name
+    }
+  } else if (valor === 2) {
+    if (props.projeto2 === null) {
+      return ''
+    }
+    if (icon) {
+      return props.projeto2.icon
+    } else {
+      return props.projeto2.name
+    }
+  } else {
+    if (props.projeto3 === null) {
+      return ''
+    }
+    if (icon) {
+      return props.projeto3.icon
+    } else {
+      return props.projeto3.name
+    }
+  }
+}
+
+const abreviateName = (nome: string) => {
+  if (nome.toLowerCase() === 'cryptograma') {
+    return 'CRPT'
+  } else if (nome.toLowerCase() === 'agência triângulo') {
+    return 'AGTR'
+  } else if (nome.toLowerCase() === 'oohimuraoo') {
+    return '{H}'
+  }
+}
 </script>
 
 <template>
@@ -61,33 +114,25 @@ const sendSize = () => {
         </div>
         <ul>
           <li>
-            <a href="#">
-              File
-            </a>
+            <a href="#"> File </a>
           </li>
           <li>
-            <a href="#">
-              Edit
-            </a>
+            <a href="#"> Edit </a>
           </li>
           <li>
-            <a href="#">
-              Select
-            </a>
+            <a href="#"> Select </a>
           </li>
           <li>
-            <a href="#">
-              View
-            </a>
+            <a href="#"> View </a>
           </li>
           <li>
             <a href="#" id="retornar">
-              <img :src="retornar" alt="retornar">
+              <img :src="retornar" alt="retornar" />
             </a>
           </li>
           <li>
             <a href="#" id="avancar">
-              <img :src="retornar" alt="avançar">
+              <img :src="retornar" alt="avançar" />
             </a>
           </li>
         </ul>
@@ -95,25 +140,28 @@ const sendSize = () => {
     </div>
     <div class="bloco_2">
       <div class="title_box">
-        <h1>f(H){}</h1>
+        <h1>F (H) { }</h1>
       </div>
     </div>
     <div class="gran_bloco">
       <div class="bloco_3">
         <ul>
-          <li>
-            <a href="#">
-              <img src="https://via.placeholder.com/15x15" alt="projeto_1">
+          <li v-if="projeto1 !== null">
+            <a href="https://timeazul.itch.io/cryptograma" target="_blank">
+              <img :src="nullValueHandler(1, true)" :alt="nullValueHandler(1, false)" />
+              <span>{{ abreviateName(nullValueHandler(1, false)) }}</span>
             </a>
           </li>
-          <li>
-            <a href="#">
-              <img src="https://via.placeholder.com/15x15" alt="projeto_2">
+          <li v-if="projeto2 !== null">
+            <a href="https://agencia-triangulo.vercel.app/" target="_blank">
+              <img :src="nullValueHandler(2, true)" :alt="nullValueHandler(2, false)" />
+              <span>{{ abreviateName(nullValueHandler(2, false)) }}</span>
             </a>
           </li>
-          <li>
-            <a href="#">
-              <img src="https://via.placeholder.com/15x15" alt="projeto_3">
+          <li v-if="projeto3 !== null">
+            <a href="https://github.com/oOHimuraOo/" target="_blank">
+              <img :src="nullValueHandler(3, true)" :alt="nullValueHandler(3, false)" />
+              <span>{{ abreviateName(nullValueHandler(3, false)) }}</span>
             </a>
           </li>
         </ul>
@@ -122,17 +170,17 @@ const sendSize = () => {
         <ul>
           <li>
             <a href="#" @click.prevent="handleWindowSize('minimized')">
-              <img :src="minimize" alt="minimizar">
+              <img :src="minimize" alt="minimizar" />
             </a>
           </li>
           <li>
             <a href="#" @click.prevent="handleWindowSize('maximized')">
-              <img :src="maximize" alt="maximizar" >
+              <img :src="maximize" alt="maximizar" />
             </a>
           </li>
           <li>
             <a href="#" @click.prevent="handleWindowSize('closed')">
-              <img :src="close" alt="fechar">
+              <img :src="close" alt="fechar" />
             </a>
           </li>
         </ul>
@@ -152,7 +200,6 @@ const sendSize = () => {
   padding: 3px 14px;
 
   .bloco_1 {
-
     nav {
       display: flex;
       width: 223px;
@@ -206,7 +253,8 @@ const sendSize = () => {
             }
           }
 
-          #retornar, #avancar {
+          #retornar,
+          #avancar {
             height: 20px;
             width: 20px;
             text-decoration: none;
@@ -266,6 +314,7 @@ const sendSize = () => {
     .bloco_3 {
       height: 20px;
       margin-right: 10px;
+      margin-top: auto;
 
       ul {
         display: flex;
@@ -273,19 +322,54 @@ const sendSize = () => {
         height: 20px;
 
         li {
-          margin-left: 5px;
+          margin-left: 10px;
+
           a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             height: 20px;
             width: 20px;
+            text-decoration: none;
+            transition: all 0.5s ease;
+
+            &:hover {
+              img {
+                height: 10px;
+                width: 10px;
+              }
+
+              span {
+                opacity: 1;
+                visibility: visible;
+                color: map-get($map: $headerColors, $key: fontSecondary);
+              }
+            }
 
             img {
               height: 20px;
               width: 20px;
+              transition:
+                height 0.5s ease,
+                width 0.5s ease;
+            }
+
+            span {
+              opacity: 0;
+              visibility: hidden;
+              justify-content: center;
+              align-items: center;
+              font-size: 8px;
+              font-family: $logoFont;
+              color: map-get($map: $headerColors, $key: font);
+              font-weight: bold;
+              transition:
+                opacity 0.5s ease,
+                visibility 0.5s ease;
             }
           }
         }
       }
-
     }
 
     .bloco_4 {
@@ -312,6 +396,5 @@ const sendSize = () => {
       }
     }
   }
-
 }
 </style>

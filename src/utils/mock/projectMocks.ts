@@ -74,7 +74,7 @@ export function generateSubProject(): subProject[] {
     const status = getRandomEnumValue()
     const tech = tecnologiasDeProgramacao[Math.floor(Math.random() * tecnologiasDeProgramacao.length)]
 
-    const newSubproject = new subProject(name, url, description, conclusion, status, icon, tech)
+    const newSubproject = new subProject(name, url, description, conclusion, status, icon, tech, "not avaible")
     subProjectArray.push(newSubproject)
   }
 
@@ -94,7 +94,7 @@ export function genearateProjects(): project[] {
     const status = getRandomEnumValue()
     const tech = tecnologiasDeProgramacao[Math.floor(Math.random() * tecnologiasDeProgramacao.length)]
 
-    const newProject = new project(name, subProjects, url, description, conclusion, status, icon, tech)
+    const newProject = new project(name, subProjects, url, description, conclusion, status, icon, tech, "not avaible")
 
     projectArray.push(newProject)
   }

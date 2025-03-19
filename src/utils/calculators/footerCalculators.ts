@@ -1,6 +1,6 @@
-import { footerInfo } from "../class/siteInfoClass";
+import { footer } from '../class/siteInfoClass'
 
-function getRandomDateInYear(date:string) {
+function getRandomDateInYear(date: string) {
   const start = new Date(date)
   const end = new Date(date)
   end.setMonth(start.getMonth() + 12)
@@ -11,7 +11,7 @@ function getRandomDateInYear(date:string) {
   return randomDate
 }
 
-function stringDateModelConverter(date:Date) {
+export function stringDateModelConverter(date: Date) {
   return new Intl.DateTimeFormat('pt-BR').format(date)
 }
 
@@ -23,13 +23,19 @@ export function generateFooterInfos() {
   const date = new Date().toDateString()
   const data = stringDateModelConverter(getRandomDateInYear(date))
   const views = Math.floor(Math.random() * 100)
-  const errors = Math.floor(Math.random() * 5)
-  const alerts = Math.floor(Math.random() * 5)
   const author = 'made by oOHimuraOo'
   const madeIn = 'made with VUE.js'
-  const expertise = ['https://via.placeholder.com/5x5', 'https://via.placeholder.com/10x10', 'https://via.placeholder.com/15x15', 'https://via.placeholder.com/20x20', 'https://via.placeholder.com/25x25', 'https://via.placeholder.com/30x30', 'https://via.placeholder.com/35x35']
+  const expertise = [
+    'https://via.placeholder.com/5x5',
+    'https://via.placeholder.com/10x10',
+    'https://via.placeholder.com/15x15',
+    'https://via.placeholder.com/20x20',
+    'https://via.placeholder.com/25x25',
+    'https://via.placeholder.com/30x30',
+    'https://via.placeholder.com/35x35',
+  ]
   const status = getRandomBoolean()
 
-  const footer = new footerInfo(data,views, errors,alerts,author,madeIn,expertise,status)
-  return footer
+  const newFooter = new footer(data, 16, 13, 3, views, author, madeIn, expertise, status)
+  return newFooter
 }

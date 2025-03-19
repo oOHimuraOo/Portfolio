@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { project } from '@/utils/class/projectClass'
-import { ref, computed } from 'vue';
+import { ref, computed } from 'vue'
 
 interface Props {
   projectsOpen: [number, number][]
@@ -9,7 +9,6 @@ interface Props {
 
 const close = './src/assets/images/icones/close-bold-svgrepo-com.svg'
 const props = defineProps<Props>()
-
 
 const findOpenedProject = computed(() => {
   const arrayDeProjectsAbertos = []
@@ -26,14 +25,13 @@ const findOpenedProject = computed(() => {
   return arrayDeProjectsAbertos
 })
 
-
 const activeTabIndex = ref<number>(0)
-const handleActivTab = (index:number) => {
+const handleActivTab = (index: number) => {
   activeTabIndex.value = index
   getOverallIndex(index, false)
 }
 
-const changeActive = (idx:number) => {
+const changeActive = (idx: number) => {
   if (findOpenedProject.value.length <= 1) {
     handleActivTab(0)
   } else if (findOpenedProject.value.length === activeTabIndex.value) {
@@ -46,20 +44,22 @@ const changeActive = (idx:number) => {
   }
 
   return false
-
 }
 
 const emit = defineEmits(['tabRemoved', 'tabActive'])
-const getOverallIndex = (index:number, remove:boolean) => {
+const getOverallIndex = (index: number, remove: boolean) => {
   const TargetProject = findOpenedProject.value[index]
-  let indexOpen:number = -1
+  let indexOpen: number = -1
   for (let x = 0; x < props.projectsOpen.length; x++) {
     if (props.projectsOpen[x][1] === -1) {
       if (props.projects[props.projectsOpen[x][0]].name === TargetProject.name) {
         indexOpen = x
       }
     } else {
-      if (props.projects[props.projectsOpen[x][0]].subProjects[props.projectsOpen[x][1]].name === TargetProject.name) {
+      if (
+        props.projects[props.projectsOpen[x][0]].subProjects[props.projectsOpen[x][1]].name ===
+        TargetProject.name
+      ) {
         indexOpen = x
       }
     }
@@ -76,13 +76,17 @@ const getOverallIndex = (index:number, remove:boolean) => {
 
   emit('tabActive', indexOpen)
 }
-
 </script>
 
 <template>
   <div class="tab_bar_container">
     <ul class="list">
-      <li v-for="(project, index) in findOpenedProject" class="list__item" :key="index" :class="{active: changeActive(index)}">
+      <li
+        v-for="(project, index) in findOpenedProject"
+        class="list__item"
+        :key="index"
+        :class="{ active: changeActive(index) }"
+      >
         <a href="#" @click.prevent="handleActivTab(index)">
           <img :src="project.icon" :alt="project.name" />
           <h3>{{ project.name }}</h3>
@@ -112,6 +116,9 @@ const getOverallIndex = (index:number, remove:boolean) => {
   .list {
     list-style: none;
     display: flex;
+    max-width: 100%;
+    overflow: hidden;
+    overflow-x: scroll;
 
     &__item {
       padding: 4px;
@@ -119,9 +126,14 @@ const getOverallIndex = (index:number, remove:boolean) => {
       align-items: center;
       justify-content: space-between;
       max-width: 150px;
+      width: 100%;
       height: 30px;
       border-top: 2px solid map-get($map: $tabBarColors, $key: primary);
       border-right: 2px solid map-get($map: $tabBarColors, $key: borderSecondary);
+
+      &:hover {
+        background-color: lighten($color: map-get($map: $tabBarColors, $key: primary), $amount: 3);
+      }
 
       a {
         display: flex;
@@ -140,6 +152,9 @@ const getOverallIndex = (index:number, remove:boolean) => {
 
         h3 {
           width: 100%;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
           height: 30px;
           align-content: center;
           overflow: hidden;
@@ -160,4 +175,5 @@ const getOverallIndex = (index:number, remove:boolean) => {
     }
   }
 }
+
 </style>

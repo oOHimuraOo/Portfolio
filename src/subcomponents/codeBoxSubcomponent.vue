@@ -1,30 +1,20 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import { applyHighlighting, isCallableString, isDeclaration, isUrlString, simpleStringChecker, compoundStringChecker, negationChecker, numericChecker, keywordRules } from '@/utils/base/keywords';
+import { computed } from 'vue'
+import { escapeHTML, highlight } from '@/utils/base/keywords'
 
 interface Props {
-  text: string;
-  keywords: string[];
+  text: string
+  keywords: string[]
 }
 
-const props = defineProps<Props>();
+const props = defineProps<Props>()
 
-const highlightedText = computed(() => {
-  let text = props.text;
-  text = applyHighlighting(text, compoundStringChecker)
-  text = applyHighlighting(text, simpleStringChecker)
-  text = applyHighlighting(text, keywordRules)
-  text = applyHighlighting(text, numericChecker)
-  text = applyHighlighting(text, negationChecker)
-  text = applyHighlighting(text, isCallableString)
-  text = applyHighlighting(text, isDeclaration)
-  text = applyHighlighting(text, isUrlString)
-
+const highlightedText = computed<string>(() => {
+  let text = props.text
+  text = highlight(text)
   return text
-});
-
+})
 </script>
-
 
 <template>
   <div class="text-box">
@@ -52,9 +42,8 @@ const highlightedText = computed(() => {
   pre {
     font-family: $codeFont;
     width: 10px;
-    color: map-get($map: $codeColor, $key: code)
+    height: 10px;
+    color: map-get($map: $codeColor, $key: code);
   }
 }
-
-
 </style>
