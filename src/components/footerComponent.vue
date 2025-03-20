@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { footerInfo } from '@/utils/class/siteInfoClass';
+import type { footer } from '@/utils/class/siteInfoClass';
 
 
 interface Props {
-  info: footerInfo
+  info: footer
 }
 
 const calendar = "./src/assets/images/icones/calendar-small-svgrepo-com.svg"

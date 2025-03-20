@@ -12,51 +12,52 @@ body {
 }
 
 
-.reds {
-    color: map-get($map: $codeColor, $key: reserved);
+.strings {
+    color: map-get($map: $codeColor, $key: strings);
 }
 
-.pinks {
-    color: map-get($map: $codeColor, $key: secondLevel);
+.comentarios {
+    color: map-get($map: $codeColor, $key: comments);
 }
 
-.greens {
-    color: map-get($map: $codeColor, $key: fileName);
+.literais {
+    color: map-get($map: $codeColor, $key: literals);
 }
 
-.mustards {
-    color: map-get($map: $codeColor, $key: string);
+.numeros {
+    color: map-get($map: $codeColor, $key: numbers);
 }
 
-.purples {
+.simbolos {
+    color: map-get($map: $codeColor, $key: symbols);
+}
+
+.declaracoes {
     color: map-get($map: $codeColor, $key: declarations);
 }
 
-.blues {
-    color: map-get($map: $codeColor, $key: reservedAbrev);
+.modificadores {
+    color: map-get($map: $codeColor, $key: modifiers);
 }
 
-.blue {
-    color: map-get($map: $codeColor, $key: variablesNames);
+.flow {
+    color: map-get($map: $codeColor, $key: flow);
 }
 
-.yellow {
-    color: map-get($map: $codeColor, $key: firstLevel);
+.tipo {
+    color: map-get($map: $codeColor, $key: type);
 }
 
-.green {
-    color: map-get($map: $codeColor, $key: functionsNames);
+.acesso {
+    color: map-get($map: $codeColor, $key: access);
 }
 
-.darkgreen {
-    color: map-get($map: $codeColor, $key: thirdLevel);
+.identificador {
+    color: map-get($map: $codeColor, $key: identifiers);
 }
 
-.lightblue {
-    color: map-get($map: $codeColor, $key: reservedAbrev);
+.organizadores {
+    color: map-get($map: $codeColor, $key: organizer);
 }
 
-.lightgreen {
-    color: map-get($map: $codeColor, $key: functionsNames);
-}
 

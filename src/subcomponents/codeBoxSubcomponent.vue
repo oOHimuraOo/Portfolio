@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { escapeHTML, highlight } from '@/utils/base/keywords'
+import { highlight } from '@/utils/base/keywords'
 
 interface Props {
-  text: string
+  text: string | undefined
   keywords: string[]
 }
 
@@ -11,6 +11,9 @@ const props = defineProps<Props>()
 
 const highlightedText = computed<string>(() => {
   let text = props.text
+  if (!text) {
+    return ''
+  }
   text = highlight(text)
   return text
 })
@@ -43,7 +46,7 @@ const highlightedText = computed<string>(() => {
     font-family: $codeFont;
     width: 10px;
     height: 10px;
-    color: map-get($map: $codeColor, $key: code);
+    color: map-get($map: $codeColor, $key: default);
   }
 }
 </style>

@@ -53,17 +53,19 @@ $codeBoxColor: (
 );
 
 $codeColor: (
-    reserved: #DE6561,
-    fileName: #ACC2AB,
-    reservedAbrev: #36C0C0,
-    variablesNames: #6199EF,
-    functionsNames: #72C369,
-    code: #ACCFD7,
-    string: #E5C07B,
-    firstLevel: #D8D700,
-    secondLevel: #DA70D6,
-    thirdLevel: #6199EF,
-    declarations: #f2d2ff,
+    strings: #FFEDA1,
+    literals: #ff00ea,
+    numbers: #A1C2A8,
+    symbols: #ABC9FF,
+    declarations: #FC6F84,
+    modifiers: #5DB455,
+    flow: #FF8CCC,
+    type: #A1FFE0,
+    access: #A3A3F5,
+    identifiers: #66E5FF,
+    comments: #75787D,
+    organizer: #F3AA70,
+    default: #CDCFD2
 );
 
 $buttonColor: (
