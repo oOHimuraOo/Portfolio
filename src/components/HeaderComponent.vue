@@ -1,17 +1,16 @@
 <script setup lang="ts">
 import type { project } from '@/utils/class/projectClass'
 import { ref } from 'vue'
+import retornar from "../assets/images/icones/back-svgrepo-com.svg"
+import minimize from "../assets/images/icones/minimize-window-svgrepo-com.svg"
+import maximize from "../assets/images/icones/maximize-svgrepo-com.svg"
+import close from "../assets/images/icones/close-bold-svgrepo-com.svg"
 
 interface Props {
   projeto1: project | null
   projeto2: project | null
   projeto3: project | null
 }
-
-const retornar = './src/assets/images/icones/back-svgrepo-com.svg'
-const minimize = './src/assets/images/icones/minimize-window-svgrepo-com.svg'
-const maximize = './src/assets/images/icones/maximize-svgrepo-com.svg'
-const close = './src/assets/images/icones/close-bold-svgrepo-com.svg'
 
 const windowSize = ref<string>('null')
 const props = defineProps<Props>()

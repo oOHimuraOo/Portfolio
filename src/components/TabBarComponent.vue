@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import type { project } from '@/utils/class/projectClass'
 import { ref, computed } from 'vue'
+import close from '../assets/images/icones/close-bold-svgrepo-com.svg'
 
 interface Props {
   projectsOpen: [number, number][]
   projects: project[]
 }
 
-const close = './src/assets/images/icones/close-bold-svgrepo-com.svg'
 const props = defineProps<Props>()
 
 const findOpenedProject = computed(() => {
@@ -175,5 +175,4 @@ const getOverallIndex = (index: number, remove: boolean) => {
     }
   }
 }
-
 </style>

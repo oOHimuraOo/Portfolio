@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { project, STATUS } from '@/utils/class/projectClass'
 import { computed, ref, defineEmits, watch } from 'vue'
+import folder from "../assets/images/icones/folder-svgrepo-com.svg"
+import openCloseImage from "../assets/images/icones/open-disc-svgrepo-com.svg"
 
 interface Props {
   selectedMenu: string
@@ -8,9 +10,6 @@ interface Props {
   projIndex: number
   subProjIndex: number
 }
-
-const folder = './src/assets/images/icones/folder-svgrepo-com.svg'
-const openCloseImage = './src/assets/images/icones/open-disc-svgrepo-com.svg'
 
 const sectionAIsActive = ref(false)
 const sectionBIsActive = ref(false)

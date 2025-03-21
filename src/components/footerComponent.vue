@@ -1,63 +1,61 @@
 <script setup lang="ts">
-import type { footer } from '@/utils/class/siteInfoClass';
-
+import type { footer } from '@/utils/class/siteInfoClass'
+import calendar from '../assets/images/icones/calendar-small-svgrepo-com.svg'
+import graduate from '../assets/images/icones/graduate-certificate-svgrepo-com.svg'
+import certificate from '../assets/images/icones/education-certificate-with-letters-cpe-and-a-ribbon-svgrepo-com.svg'
+import totalEducation from '../assets/images/icones/graduate-svgrepo-com.svg'
+import Fullstack from '../assets/images/icones/stack2-svgrepo-com.svg'
+import gamedev from '../assets/images/icones/game-controller-svgrepo-com.svg'
+import views from '../assets/images/icones/globe-svgrepo-com.svg'
 
 interface Props {
   info: footer
 }
-
-const calendar = "./src/assets/images/icones/calendar-small-svgrepo-com.svg"
-const graduate = "./src/assets/images/icones/graduate-certificate-svgrepo-com.svg"
-const certificate = "./src/assets/images/icones/education-certificate-with-letters-cpe-and-a-ribbon-svgrepo-com.svg"
-const totalEducation = "./src/assets/images/icones/graduate-svgrepo-com.svg"
-const Fullstack = "./src/assets/images/icones/stack2-svgrepo-com.svg"
-const gamedev = "./src/assets/images/icones/game-controller-svgrepo-com.svg"
-const views = "./src/assets/images/icones/globe-svgrepo-com.svg"
 
 const props = defineProps<Props>()
 </script>
 
 <template>
   <div class="footer_container">
-    <div class="status" :class="{offline: props.info.status}">
+    <div class="status" :class="{ offline: props.info.status }">
       <h1>{H}</h1>
     </div>
     <div class="bars">
       <div class="left_bar">
         <div>
-          <img :src="calendar" alt="last Updated at">
+          <img :src="calendar" alt="last Updated at" />
           <span>{{ props.info.lastUpdate }}</span>
         </div>
         <div>
-          <img :src="views" alt="views">
+          <img :src="views" alt="views" />
           <span>{{ props.info.views }}</span>
         </div>
         <div>
-          <img :src="totalEducation" alt="Quantity of certificates and diplomas">
+          <img :src="totalEducation" alt="Quantity of certificates and diplomas" />
           <span>{{ props.info.totalCourses }}</span>
         </div>
         <div>
-          <img :src="certificate" alt="Quantity of certificates">
+          <img :src="certificate" alt="Quantity of certificates" />
           <span>{{ props.info.certificates }}</span>
         </div>
         <div>
-          <img :src="graduate" alt="Quantity of diplomas">
+          <img :src="graduate" alt="Quantity of diplomas" />
           <span>{{ props.info.graduations }}</span>
         </div>
       </div>
       <div class="center_bar">
         <div>
-          <img :src="Fullstack" alt="">
+          <img :src="Fullstack" alt="" />
           <span>{{ props.info.author }}</span>
         </div>
         <div>
-          <img :src="gamedev" alt="">
+          <img :src="gamedev" alt="" />
           <span>{{ props.info.madeIn }}</span>
         </div>
       </div>
       <div class="right_bar">
         <div>
-          <img v-for="(url, index) in props.info.expertise" :src="url" :key="index">
+          <img v-for="(url, index) in props.info.expertise" :src="url" :key="index" />
         </div>
       </div>
     </div>

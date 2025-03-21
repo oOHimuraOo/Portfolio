@@ -1,5 +1,11 @@
 <script setup lang="ts">
 import { ref, defineEmits } from 'vue';
+import projects from "../assets/images/icones/files-svgrepo-com.svg"
+import pSelected from "../assets/images/icones/files-svgrepo-com copy.svg"
+import search from "../assets/images/icones/search-2-svgrepo-com.svg"
+import sSelected from "../assets/images/icones/search-2-svgrepo-com copy.svg"
+import git from "../assets/images/icones/git-svgrepo-com.svg"
+import gSelected from "../assets/images/icones/git-svgrepo-com copy.svg"
 
 const projectIsActive = ref(false)
 const searchIsActive = ref(false)
@@ -47,13 +53,6 @@ const toggleActive = (name:string) => {
     gitIsActive.value = false
   }
 }
-
-const projects = './src/assets/images/icones/files-svgrepo-com.svg'
-const pSelected = './src/assets/images/icones/files-svgrepo-com copy.svg'
-const search = './src/assets/images/icones/search-2-svgrepo-com.svg'
-const sSelected = './src/assets/images/icones/search-2-svgrepo-com copy.svg'
-const git =  './src/assets/images/icones/git-svgrepo-com.svg'
-const gSelected = './src/assets/images/icones/git-svgrepo-com copy.svg'
 
 </script>
 
